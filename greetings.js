@@ -6,7 +6,7 @@ const USERNAME_LS = "currentUser"
 const SHOWING_CN = "showing"
 const NOTSHOWING_CN = "notshowing"
 
-function setLocalStorage(text){
+function setUserLocalStorage(text){
     localStorage.setItem(USERNAME_LS, text);
 }
 
@@ -14,7 +14,7 @@ function updateText(event){
     event.preventDefault();
     currentUser = userName.value;
     
-    setLocalStorage(currentUser);
+    setUserLocalStorage(currentUser);
     paintGreeting(userName.value);
 }
 
@@ -30,7 +30,7 @@ function paintGreeting(text){
 }
 
 function loadNmae(){
-    currentUserName = localStorage.getItem("currentUser");
+    currentUserName = localStorage.getItem(USERNAME_LS);
     if(currentUserName === null){
         askForName();
     } else {
