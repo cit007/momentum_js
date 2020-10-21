@@ -5,6 +5,23 @@ const todoList = document.querySelector(".js-todolist");
 const TODOS_LS = "todos";
 let todos = [];
 
+function deleteTodo(event) {
+    // console.dir(event.target)
+    console.log(event.target.parentNode);
+    const curDelBtn = event.target;
+    const parentLi = curDelBtn.parentNode;
+    todoList.removeChild(parentLi);
+
+    // return filtered array
+    filteredArr = todos.filter(function(todo){
+        console.log(todo.id, parentLi.id);
+        return todo.id != parentLi.id;
+    })
+    
+    todos = filteredArr;
+    setTodoLocalStorage();
+}
+
 function setTodoLocalStorage(){
     localStorage.setItem(TODOS_LS, JSON.stringify(todos));
 }
@@ -17,6 +34,7 @@ function printTodo(todoAll) {
 
         console.log(obj);
         delBtn.innerText = "❎"
+        delBtn.addEventListener("click", deleteTodo)
         span.innerText = obj.text;
     
         li.id = obj.id;
