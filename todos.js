@@ -3,14 +3,14 @@ const todoInput = todoForm.querySelector(".js-todo");
 const todoList = document.querySelector(".js-todolist");
 
 const TODOS_LS = "todos";
-const todos = [];
+let todos = [];
 
-function setTodoLocalStorage(todos){
+function setTodoLocalStorage(){
     localStorage.setItem(TODOS_LS, JSON.stringify(todos));
 }
 
-function printTodo(todos) {
-    todos.forEach((obj,index,array) => {
+function printTodo(todoAll) {
+    todoAll.forEach((obj,index,array) => {
         const li = document.createElement("li");
         const delBtn = document.createElement("button");
         const span = document.createElement("span");
@@ -31,31 +31,36 @@ function pushTodo(text) {
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
     const span = document.createElement("span");
+    const newId = todos.length;
 
-    delBtn.innerText = "❎"
+    delBtn.innerText = "❎";
     span.innerText = text;
 
-    newId = todos.length;
     li.id = newId;
     li.appendChild(delBtn);
     li.appendChild(span);
 
     todoList.appendChild(li);
 
-    todo = {
+    const todo = {
         text: text,
         id: newId
-    }
+    };
 
+    console.log("before pushTodo : todos");
+    console.log(todos);
     todos.push(todo);
-    setTodoLocalStorage(todos);
+    console.log("after pushTodo : todos");
+    setTodoLocalStorage();
+    console.log(todos);
 }
 
 function addTodo(event) {
+    console.log("add to do")
     event.preventDefault();
-    const todo = todoInput.value;
+    const todoTxt = todoInput.value;
 
-    pushTodo(todo);
+    pushTodo(todoTxt);
 }
 
 function askForTodo() {
@@ -64,14 +69,16 @@ function askForTodo() {
 }
 
 function loadTodo() {
-    const todos = localStorage.getItem(TODOS_LS);
+    todos = JSON.parse(localStorage.getItem(TODOS_LS));
+
     askForTodo();
     if(todos !== null) {
-        printTodo(JSON.parse(localStorage.getItem(TODOS_LS)));
+        printTodo(todos);
     }
 }
 
 function init(){
+    console.log("##### INIT ######")
     loadTodo();
 }
 
