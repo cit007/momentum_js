@@ -12,12 +12,18 @@ function deleteTodo(event) {
     const parentLi = curDelBtn.parentNode;
     todoList.removeChild(parentLi);
 
-    // return filtered array
+    // return filtered array : allocate new id for duplication
+    idx = 0;
     filteredArr = todos.filter(function(todo){
         console.log(todo.id, parentLi.id);
-        return todo.id != parentLi.id;
+        if(todo.id != parentLi.id) {
+            todo.id = idx++;
+            return true;
+        } else {
+            return false;
+        }
     })
-    
+    console.log("delete todo", filteredArr)
     todos = filteredArr;
     setTodoLocalStorage();
 }
@@ -48,6 +54,7 @@ function printTodo(todoAll) {
 function pushTodo(text) {
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
+    delBtn.addEventListener("click", deleteTodo)
     const span = document.createElement("span");
     const newId = todos.length;
 
@@ -65,16 +72,12 @@ function pushTodo(text) {
         id: newId
     };
 
-    console.log("before pushTodo : todos");
-    console.log(todos);
     todos.push(todo);
-    console.log("after pushTodo : todos");
+    console.log("add todo", todos)
     setTodoLocalStorage();
-    console.log(todos);
 }
 
 function addTodo(event) {
-    console.log("add to do")
     event.preventDefault();
     const todoTxt = todoInput.value;
 
