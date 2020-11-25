@@ -7,21 +7,28 @@
     <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-    <div class="js-clock">
-        <h1 class="js-title">00:00:00
-
-        </h1>
+    <div class="region">
+        <div class="js-clock">
+            <span class="side-col"></span>
+            <h1 class="js-title">00:00</h1>
+            <span class="side-col"></span>
+        </div>
     </div>
-
-    <form class="js-userform">
-        <input type="text" class="js-username" placeholder="What is your name">
-    </form>
-    <h4 class="js-greetings"></h4>
-
-    <form class="js-todoform">
-        <input type="text" class="js-todo" placeholder="What a to do">
-    </form>
-    <ul class="js-todolist"></ul>
+    
+    <div class="greeting">
+        <form class="js-userform">
+            <input type="text" class="js-username" placeholder="What is your name">
+        </form>
+        <h4 class="js-greetings"></h4>
+    </div>
+    
+    <div class="region">
+        <form class="js-todoform">
+            <input type="text" class="js-todo" placeholder="What a to do">
+        </form>
+        <ul class="js-todolist"></ul>
+    </div>
+    
 
     <div class="js-weather">
         <h3 class="js-temp"></h3>

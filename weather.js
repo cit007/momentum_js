@@ -10,7 +10,7 @@ function getWeather(lat,lon) {
         return response.json();
     })
     .then(function(myJson) {
-        console.log(JSON.stringify(myJson));
+        console.log("getWeather :", JSON.stringify(myJson));
         temp.innerHTML = myJson.main.temp_max
         loc.innerHTML = myJson.name
     })
