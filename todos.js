@@ -113,16 +113,17 @@ function printAllFromLocalStorage(arrData, pending=true) {
     let idAttr = document.createAttribute("id");
     const spanTxt = document.createElement("span");
     spanTxt.innerText = obj.text;
-    const delBtn = document.createElement("button");
-    delBtn.innerText = "❎";
+    //delete button
+    const delBtn = deleteBtn.cloneNode(true);
     delBtn.addEventListener("click", handleDelete)
-    const chkBtn = document.createElement("button");
+
+    let chkBtn = ""
     if(pending == true) {
-      chkBtn.innerText = "✔︎";
-      chkBtn.addEventListener("click", handleCheck);
+        chkBtn = checkBtn.cloneNode(true);
+        chkBtn.addEventListener("click", handleCheck);
     } else {
-      chkBtn.innerText = "◀︎";
-      chkBtn.addEventListener("click", handleBack);
+        chkBtn = backBtn.cloneNode(true);
+        chkBtn.addEventListener("click", handleBack);
     }
 
     idAttr.value = obj.id;
