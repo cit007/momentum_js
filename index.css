@@ -24,6 +24,7 @@ body {
 
 .navigation .search-area {
   font-size: 1.5rem;
+  display: flex;
 }
 
 .navigation .js-weather {
@@ -103,7 +104,7 @@ body {
   font-size: 2rem;
 }
 
-input {
+.main-content input {
   width: 100%;
   font-size: 2rem;
   font-weight: 400;
@@ -116,6 +117,34 @@ input {
   outline: 0;
   text-align: center;
   color: white;
+}
+
+.navigation input {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 100;
+  padding-top: 5px;
+  display: block;
+  background: 0;
+  border: 0;
+  border-bottom: 2px solid #fff;
+  font-weight: 500;
+  outline: 0;
+  text-align: center;
+  color: white;
+}
+
+.search-area__link {
+  margin-right: 15px;
+}
+
+.search-area__search {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.search-area__search:hover {
+  opacity: 1;
 }
 
 input::placeholder {
