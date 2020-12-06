@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Momentum</title>
     <link rel="stylesheet" href="index.css" />
+    <script defer src="clock.js"></script>
+    <script defer src="greetings.js"></script>
+    <script defer src="todos.js"></script>
+    <script defer src="bg.js"></script>
+    <script defer src="weather.js"></script>
 </head>
 <body>
     <div class="region">
@@ -22,11 +27,18 @@
         <h4 class="js-greetings"></h4>
     </div>
     
-    <div class="region">
-        <form class="js-todoform">
-            <input type="text" class="js-todo" placeholder="What a to do">
+    <div class="todo">
+        <form class="todo-form">
+            <input class="todo-form__input type="text">
         </form>
-        <ul class="js-todolist"></ul>
+        
+        <h2>Pending</h2>
+        <ul class="pending-list">
+        </ul>
+    
+        <h2>Finished</h2>
+        <ul class="finish-list">
+        </ul>
     </div>
     
 
@@ -34,10 +46,6 @@
         <h3 class="js-temp"></h3>
         <h3 class="js-loc"></h3>
     </div>
-    <script src="clock.js"></script>
-    <script src="greetings.js"></script>
-    <script src="todos.js"></script>
-    <script src="bg.js"></script>
-    <script src="weather.js"></script>
+    
 </body>
 </html>

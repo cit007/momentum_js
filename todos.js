@@ -1,106 +1,153 @@
-const todoForm = document.querySelector(".js-todoform");
-const todoInput = todoForm.querySelector(".js-todo");
-const todoList = document.querySelector(".js-todolist");
+const todoForm = document.querySelector(".todo-form");
+const todoInput = document.querySelector(".todo-form__input");
+const pendingList = document.querySelector(".pending-list");
+const finishList = document.querySelector(".finish-list");
 
-const TODOS_LS = "todos";
-let todos = [];
+const PENDING_LS = "PENDING";
+const FINISHED_LS = "FINISHED";
+let pendingArr = [];
+let finishArr = [];
 
-function deleteTodo(event) {
-    // console.dir(event.target)
-    console.log(event.target.parentNode);
-    const curDelBtn = event.target;
-    const parentLi = curDelBtn.parentNode;
-    todoList.removeChild(parentLi);
+function appendItem(text, pending=true) {
+  const item = document.createElement("li");
+  let idAttr = document.createAttribute("id");
+  const spanTxt = document.createElement("span");
+  spanTxt.innerText = text;
+  const delBtn = document.createElement("button");
+  delBtn.innerText = "❎";
+  delBtn.addEventListener("click", handleDelete)
+  const chkBtn = document.createElement("button");
+  if(pending == true) {
+    chkBtn.innerText = "✔︎";
+    chkBtn.addEventListener("click", handleCheck);
+  } else {
+    chkBtn.innerText = "◀︎";
+    chkBtn.addEventListener("click", handleBack);
+  }
 
-    // return filtered array : allocate new id for duplication
-    idx = 0;
-    filteredArr = todos.filter(function(todo){
-        console.log(todo.id, parentLi.id);
-        if(todo.id != parentLi.id) {
-            todo.id = idx++;
-            return true;
-        } else {
-            return false;
-        }
+  const id = Date.now();
+  console.log(id);
+  idAttr.value = id;
+  item.setAttributeNode(idAttr);
+  item.appendChild(spanTxt);
+  item.appendChild(delBtn);
+  item.appendChild(chkBtn);
+  if(pending == true) {
+    pendingList.appendChild(item);
+
+    const insObj = {"id":id, "text":text};
+    pendingArr.push(insObj);
+    console.log("local", insObj)
+    localStorage.setItem(PENDING_LS, JSON.stringify(pendingArr));
+  } else {
+    finishList.appendChild(item);
+
+    const insObj = {"id":id, "text":text};
+    finishArr.push(insObj);
+    console.log("local", insObj)
+    localStorage.setItem(FINISHED_LS, JSON.stringify(finishArr));
+  }
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  appendItem(todoInput.value, true);
+  todoInput.value = "";
+}
+
+function handleDelete(e) {
+  // console.log(e.target.parentElement)
+  const className = e.target.parentElement.parentElement.getAttribute("class");
+  const id = e.target.parentElement.getAttribute("id");
+  console.log("-----", id, className)
+
+  if(className === "pending-list") {
+    // delete from array list & set localStorage
+    pendingArr = pendingArr.filter( obj => {
+      console.log(obj.id, id)
+      if(obj.id.toString() !== id)
+        return true;
     })
-    console.log("delete todo", filteredArr)
-    todos = filteredArr;
-    setTodoLocalStorage();
-}
+    localStorage.setItem(PENDING_LS, JSON.stringify(pendingArr));
 
-function setTodoLocalStorage(){
-    localStorage.setItem(TODOS_LS, JSON.stringify(todos));
-}
-
-function printTodo(todoAll) {
-    todoAll.forEach((obj,index,array) => {
-        const li = document.createElement("li");
-        const delBtn = document.createElement("button");
-        const span = document.createElement("span");
-
-        console.log(obj);
-        delBtn.innerText = "❎"
-        delBtn.addEventListener("click", deleteTodo)
-        span.innerText = obj.text;
-    
-        li.id = obj.id;
-        li.appendChild(delBtn);
-        li.appendChild(span);
-    
-        todoList.appendChild(li);
+    // delete from ui
+    pendingList.removeChild(e.target.parentElement);
+  } else {
+    // delete from array list & set localStorage
+    finishArr = finishArr.filter( obj => {
+      console.log(obj.id, id)
+      if(obj.id.toString() !== id)
+        return true;
     })
+    localStorage.setItem(FINISHED_LS, JSON.stringify(finishArr));
+
+    // delete from ui
+    finishList.removeChild(e.target.parentElement);
+  }
+  
 }
 
-function pushTodo(text) {
-    const li = document.createElement("li");
+function handleCheck(e) {
+  const text = e.target.parentElement.querySelector("span").innerText
+  // console.log(text)
+  appendItem(text, false);
+  handleDelete(e);
+}
+
+function handleBack(e) {
+  const text = e.target.parentElement.querySelector("span").innerText
+  appendItem(text, true);
+  handleDelete(e);
+}
+
+function printAllFromLocalStorage(arrData, pending=true) {
+  arrData.forEach((obj) => {
+    console.log(obj.id, obj.text);
+    const item = document.createElement("li");
+    let idAttr = document.createAttribute("id");
+    const spanTxt = document.createElement("span");
+    spanTxt.innerText = obj.text;
     const delBtn = document.createElement("button");
-    delBtn.addEventListener("click", deleteTodo)
-    const span = document.createElement("span");
-    const newId = todos.length;
-
     delBtn.innerText = "❎";
-    span.innerText = text;
-
-    li.id = newId;
-    li.appendChild(delBtn);
-    li.appendChild(span);
-
-    todoList.appendChild(li);
-
-    const todo = {
-        text: text,
-        id: newId
-    };
-
-    todos.push(todo);
-    console.log("add todo", todos)
-    setTodoLocalStorage();
-}
-
-function addTodo(event) {
-    event.preventDefault();
-    const todoTxt = todoInput.value;
-
-    pushTodo(todoTxt);
-}
-
-function askForTodo() {
-    todoForm.classList.add(SHOWING_CN);
-    todoForm.addEventListener("submit", addTodo)
-}
-
-function loadTodo() {
-    todos = JSON.parse(localStorage.getItem(TODOS_LS));
-
-    askForTodo();
-    if(todos !== null) {
-        printTodo(todos);
+    delBtn.addEventListener("click", handleDelete)
+    const chkBtn = document.createElement("button");
+    if(pending == true) {
+      chkBtn.innerText = "✔︎";
+      chkBtn.addEventListener("click", handleCheck);
+    } else {
+      chkBtn.innerText = "◀︎";
+      chkBtn.addEventListener("click", handleBack);
     }
+
+    idAttr.value = obj.id;
+    item.setAttributeNode(idAttr);
+    item.appendChild(spanTxt);
+    item.appendChild(delBtn);
+    item.appendChild(chkBtn);
+    if(pending == true) {
+      pendingList.appendChild(item);
+    } else {
+      finishList.appendChild(item);
+    }
+  })
 }
 
-function init(){
-    console.log("##### INIT ######")
-    loadTodo();
+function init() {
+  let pendingLs = JSON.parse(localStorage.getItem(PENDING_LS));
+  pendingLs ? pendingArr = pendingLs : [];
+  let finishLs = JSON.parse(localStorage.getItem(FINISHED_LS));
+  finishLs ? finishArr = finishLs : [];
+  console.log(pendingArr,finishArr);
+
+  if(pendingArr.length > 0) {
+    printAllFromLocalStorage(pendingArr, true);
+  }
+  if(finishArr.length > 0) {
+    printAllFromLocalStorage(finishArr, false);
+  }
+
+  todoForm.addEventListener("submit", handleSubmit);
 }
 
 init();
