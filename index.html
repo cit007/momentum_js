@@ -10,42 +10,54 @@
     <script defer src="todos.js"></script>
     <script defer src="bg.js"></script>
     <script defer src="weather.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.14.0/css/all.min.css">
 </head>
 <body>
-    <div class="region">
-        <div class="js-clock">
-            <span class="side-col"></span>
-            <h1 class="js-title">00:00</h1>
-            <span class="side-col"></span>
+    <nav class="navigation">
+        <div class="search-area">
+            <div class="search-area__link">Links</div>
+            <div class="search-area__search"><i class="fas fa-search"></i></div>
         </div>
-    </div>
-    
-    <div class="greeting">
-        <form class="js-userform">
-            <input type="text" class="js-username" placeholder="What is your name">
-        </form>
-        <h4 class="js-greetings"></h4>
-    </div>
-    
-    <div class="todo">
-        <form class="todo-form">
-            <input class="todo-form__input type="text">
-        </form>
-        
-        <h2>Pending</h2>
-        <ul class="pending-list">
-        </ul>
-    
-        <h2>Finished</h2>
-        <ul class="finish-list">
-        </ul>
-    </div>
-    
 
-    <div class="js-weather">
-        <h3 class="js-temp"></h3>
-        <h3 class="js-loc"></h3>
-    </div>
+
+        </div>
+        <div class="js-weather">
+            <h3 class="js-temp"></h3>
+            <h3 class="js-loc"></h3>
+        </div>
+    </nav>
+
+    <main>
+        <div class="region">
+            <div class="js-clock">
+                <span class="side-col"></span>
+                <h1 class="js-title">00:00</h1>
+                <span class="side-col"></span>
+            </div>
+        </div>
+        
+        <div class="greeting">
+            <form class="js-userform">
+                <input type="text" class="js-username" placeholder="What is your name">
+            </form>
+            <h4 class="js-greetings"></h4>
+        </div>
+        
+        <div class="todo">
+            <form class="todo-form">
+                <input class="todo-form__input type="text">
+            </form>
+            
+            <h2>What's your main focus?</h2>
+            <ul class="pending-list">
+            </ul>
+        
+            <h2>Done</h2>
+            <ul class="finish-list">
+            </ul>
+        </div>
+    </main>
     
 </body>
 </html>
