@@ -16,19 +16,19 @@
 <body>
     <nav class="navigation">
         <div class="search-area">
-            <div class="search-area__link">Links</div>
-            <div class="search-area__search"><i class="fas fa-search"></i></div>
-        </div>
-
-
+            <span class="search-area__link">Links</span>
+            <span class="search-area__search"><i class="fas fa-search"></i></span>
         </div>
         <div class="js-weather">
-            <h3 class="js-temp"></h3>
-            <h3 class="js-loc"></h3>
+            <i class="fas fa-sun fa-2x"></i>
+            <div>
+                <span class="js-temp"></span><span>&#8451;</span>
+                <h3 class="js-loc"></h3>
+            </div>
         </div>
     </nav>
 
-    <main>
+    <main class="main-content">
         <div class="region">
             <div class="js-clock">
                 <span class="side-col"></span>
@@ -39,23 +39,28 @@
         
         <div class="greeting">
             <form class="js-userform">
-                <input type="text" class="js-username" placeholder="What is your name">
+                <input type="text" class="js-username" placeholder="What is your name?">
             </form>
             <h4 class="js-greetings"></h4>
         </div>
         
         <div class="todo">
+            <h1></h1>
             <form class="todo-form">
-                <input class="todo-form__input type="text">
+                <input class="todo-form__input" type="text" placeholder="What's your main focus?">
             </form>
             
-            <h2>What's your main focus?</h2>
-            <ul class="pending-list">
-            </ul>
-        
-            <h2>Done</h2>
-            <ul class="finish-list">
-            </ul>
+            <div class="board">
+                <div class="todo-board">
+                    <ul class="pending-list">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="done-board">
+                <ul class="finish-list">
+                </ul>
+            </div> 
         </div>
     </main>
     
