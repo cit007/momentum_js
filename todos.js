@@ -3,6 +3,10 @@ const todoInput = document.querySelector(".todo-form__input");
 const pendingList = document.querySelector(".pending-list");
 const finishList = document.querySelector(".finish-list");
 
+const checkBtn = document.querySelector(".check-btn");
+const backBtn = document.querySelector(".back-btn");
+const deleteBtn = document.querySelector(".delete-btn");
+
 const PENDING_LS = "PENDING";
 const FINISHED_LS = "FINISHED";
 let pendingArr = [];
@@ -13,15 +17,16 @@ function appendItem(text, pending=true) {
   let idAttr = document.createAttribute("id");
   const spanTxt = document.createElement("span");
   spanTxt.innerText = text;
-  const delBtn = document.createElement("button");
-  delBtn.innerText = "❎";
+  //delete button
+  const delBtn = deleteBtn.cloneNode(true);
   delBtn.addEventListener("click", handleDelete)
-  const chkBtn = document.createElement("button");
+
+  let chkBtn = ""
   if(pending == true) {
-    chkBtn.innerText = "✔︎";
+    chkBtn = checkBtn.cloneNode(true);
     chkBtn.addEventListener("click", handleCheck);
   } else {
-    chkBtn.innerText = "◀︎";
+    chkBtn = backBtn.cloneNode(true);
     chkBtn.addEventListener("click", handleBack);
   }
 
@@ -57,7 +62,7 @@ function handleSubmit(e) {
 }
 
 function handleDelete(e) {
-  // console.log(e.target.parentElement)
+  console.log(e.target.parentElement)
   const className = e.target.parentElement.parentElement.getAttribute("class");
   const id = e.target.parentElement.getAttribute("id");
   console.log("-----", id, className)
