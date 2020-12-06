@@ -81,6 +81,8 @@ body {
   border-radius: 20px;
   color: black;
   padding: 10px;
+
+  font-size: 2rem;
 }
 
 .todo-board:hover {
@@ -97,6 +99,8 @@ body {
   border-radius: 20px;
   color: black;
   padding: 10px;
+
+  font-size: 2rem;
 }
 
 input {
